@@ -26,7 +26,7 @@ export default function Nav() {
     <header
       className={`sticky top-0 z-50 transition-all duration-500 ${
         isDark
-          ? "bg-ink border-b border-white/10"
+          ? "bg-black"
           : "bg-bone/90 backdrop-blur-md border-b border-line"
       }`}
     >
@@ -43,14 +43,7 @@ export default function Nav() {
           {site.brand}
         </Link>
 
-        {/* Mobile centre — Photography & Visual Production (dark state only) */}
-        {isDark && (
-          <span className="text-[8px] font-extrabold uppercase leading-tight tracking-wide text-bone text-center max-w-[130px] md:hidden">
-            Photography &amp; Visual Production
-          </span>
-        )}
-
-        {/* Desktop right side */}
+        {/* Desktop right side only */}
         <div className="hidden items-center gap-9 md:flex">
           {isDark ? (
             <span className="text-[20px] font-extrabold uppercase tracking-wide text-bone">
@@ -77,7 +70,7 @@ export default function Nav() {
           )}
         </div>
 
-        {/* Hamburger */}
+        {/* Hamburger — mobile only */}
         <button
           aria-label="Toggle menu"
           onClick={() => setOpen((v) => !v)}
