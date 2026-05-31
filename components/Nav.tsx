@@ -25,9 +25,7 @@ export default function Nav() {
   return (
     <header
       className={`sticky top-0 z-50 transition-all duration-500 ${
-        isDark
-          ? "bg-black"
-          : "bg-bone/90 backdrop-blur-md border-b border-line"
+        isDark ? "bg-[#0b0b0b]" : "bg-bone/90 backdrop-blur-md"
       }`}
     >
       <div className="container-x flex h-[68px] items-center justify-between">
