@@ -2,23 +2,22 @@ import { site, homeServices } from "@/lib/content";
 import { imageUrl, artGallery } from "@/lib/images";
 import Reveal from "@/components/Reveal";
 
-// Each client gets a weight for typographic intrigue
 const clientsStyled = [
-  { name: "Nelson Makamo",           weight: "font-extrabold" },
-  { name: "Joni Brenner",            weight: "font-extralight" },
-  { name: "Strauss & Co",            weight: "font-bold" },
-  { name: "Warren Siebrits",         weight: "font-light" },
-  { name: "Karel Nel",               weight: "font-extralight" },
-  { name: "Jake Singer",             weight: "font-extrabold" },
-  { name: "Norman Catherine",        weight: "font-light" },
-  { name: "Francis Goodman",         weight: "font-bold" },
-  { name: "Everard Read",            weight: "font-extralight" },
-  { name: "Goodman Gallery",         weight: "font-semibold" },
-  { name: "Anita Makan",             weight: "font-light" },
-  { name: "Riaan Bolt",              weight: "font-extrabold" },
-  { name: "Blank Projects",          weight: "font-extralight" },
-  { name: "Johannesburg Art Gallery",weight: "font-semibold" },
-  { name: "Wits Art Museum",         weight: "font-light" },
+  { name: "Nelson Makamo",            weight: "font-extrabold" },
+  { name: "Joni Brenner",             weight: "font-extralight" },
+  { name: "Strauss & Co",             weight: "font-bold" },
+  { name: "Warren Siebrits",          weight: "font-light" },
+  { name: "Karel Nel",                weight: "font-extralight" },
+  { name: "Jake Singer",              weight: "font-extrabold" },
+  { name: "Norman Catherine",         weight: "font-light" },
+  { name: "Francis Goodman",          weight: "font-bold" },
+  { name: "Everard Read",             weight: "font-extralight" },
+  { name: "Goodman Gallery",          weight: "font-semibold" },
+  { name: "Anita Makan",              weight: "font-light" },
+  { name: "Riaan Bolt",               weight: "font-extrabold" },
+  { name: "Blank Projects",           weight: "font-extralight" },
+  { name: "Johannesburg Art Gallery", weight: "font-semibold" },
+  { name: "Wits Art Museum",          weight: "font-light" },
 ];
 
 export default function Home() {
@@ -26,40 +25,41 @@ export default function Home() {
 
   return (
     <>
-      {/* ── HERO ── Full screen video, no overlay, no text on top */}
+      {/* ── HERO ── Full screen video */}
       <section
         className="relative overflow-hidden bg-ink"
-        style={{ minHeight: "calc(100vh - 68px)" }}
+        style={{ height: "calc(100dvh - 68px)" }}
       >
+        {/* Video — positioned to top on mobile so action shows higher up */}
         <video
           autoPlay
           muted
           loop
           playsInline
-          className="absolute inset-0 h-full w-full object-cover"
+          className="absolute inset-0 h-full w-full object-cover object-top sm:object-center"
         >
           <source src={heroVideo} type="video/mp4" />
         </video>
 
-        {/* Contact bottom-left, clients bottom-right */}
-        <div className="absolute bottom-8 left-0 right-0 z-10 container-x flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">
+        {/* Bottom content — side by side on both mobile and desktop */}
+        <div className="absolute bottom-6 left-0 right-0 z-10 container-x flex flex-row items-end justify-between gap-4">
 
           {/* Left: contact */}
-          <div className="space-y-1">
-            <a href={site.contact.phoneHref} className="block text-sm font-light text-bone/75 hover:text-bone transition-colors">
+          <div className="space-y-0.5">
+            <a href={site.contact.phoneHref} className="block text-[11px] sm:text-sm font-light text-bone/75 hover:text-bone transition-colors">
               {site.contact.phone}
             </a>
-            <a href={`mailto:${site.contact.email}`} className="block text-sm font-light text-bone/75 hover:text-bone transition-colors">
+            <a href={`mailto:${site.contact.email}`} className="block text-[11px] sm:text-sm font-light text-bone/75 hover:text-bone transition-colors">
               {site.contact.email}
             </a>
-            <p className="pt-2 text-[11px] uppercase tracking-label text-bone/40">
+            <p className="pt-1 text-[9px] sm:text-[11px] uppercase tracking-label text-bone/40">
               JHB · CPT · South Africa
             </p>
           </div>
 
-          {/* Right: clients — 2 lines desktop, 7 lines mobile */}
-          <div className="sm:max-w-[55%] sm:text-right">
-            <p className="text-[11px] uppercase leading-loose text-bone/70">
+          {/* Right: clients with varied weights */}
+          <div className="max-w-[52%] sm:max-w-[55%] text-right">
+            <p className="text-[8px] sm:text-[11px] uppercase leading-loose text-bone/70">
               {clientsStyled.map((c, i) => (
                 <span key={c.name}>
                   <span className={c.weight}>{c.name.toUpperCase()}</span>
