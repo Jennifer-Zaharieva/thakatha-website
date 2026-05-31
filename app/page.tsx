@@ -4,6 +4,7 @@ import { imageUrl, artGallery } from "@/lib/images";
 import Reveal from "@/components/Reveal";
 
 export default function Home() {
+  // Hero video — hosted in Supabase Storage
   const heroVideo = "https://pavzocgkrwbhbrjskaud.supabase.co/storage/v1/object/public/video%20for%20front%20page/T%20H%20A%20K%20A%20T%20H%20A%20%20-%20%20R%20E%20P%20R%20O_3.mp4";
 
   return (
@@ -13,17 +14,20 @@ export default function Home() {
         className="relative flex flex-col overflow-hidden bg-ink"
         style={{ minHeight: "calc(100vh - 68px)" }}
       >
-        {/* Video background */}
+        {/* Video background — loads once uploaded to Supabase */}
         <video
           autoPlay
           muted
           loop
           playsInline
-          className="absolute inset-0 h-full w-full object-cover opacity-50"
+          className="absolute inset-0 h-full w-full object-cover opacity-60"
           aria-hidden="true"
         >
           <source src={heroVideo} type="video/mp4" />
         </video>
+
+        {/* Dark overlay — text stays solid white, no video bleeding through letters */}
+        <div className="absolute inset-0 bg-ink/55" />
 
         {/* Content layer */}
         <div className="relative z-10 container-x flex flex-1 flex-col py-8">
