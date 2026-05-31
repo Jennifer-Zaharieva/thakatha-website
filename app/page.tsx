@@ -25,12 +25,12 @@ export default function Home() {
 
   return (
     <>
-      {/* ── HERO ── Full screen video */}
+      {/* ── HERO ── */}
       <section
         className="relative overflow-hidden bg-ink"
         style={{ height: "calc(100dvh - 68px)" }}
       >
-        {/* Video — positioned to top on mobile so action shows higher up */}
+        {/* Video */}
         <video
           autoPlay
           muted
@@ -41,7 +41,14 @@ export default function Home() {
           <source src={heroVideo} type="video/mp4" />
         </video>
 
-        {/* Bottom content — side by side on both mobile and desktop */}
+        {/* Mobile only — Photography & Visual Production centered at top of hero */}
+        <div className="absolute top-5 left-0 right-0 z-10 flex justify-center md:hidden">
+          <span className="text-[10px] font-extrabold uppercase tracking-widest text-bone/80 text-center">
+            Photography & Visual Production
+          </span>
+        </div>
+
+        {/* Bottom content */}
         <div className="absolute bottom-6 left-0 right-0 z-10 container-x flex flex-row items-end justify-between gap-4">
 
           {/* Left: contact */}
@@ -57,7 +64,7 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Right: clients with varied weights */}
+          {/* Right: clients */}
           <div className="max-w-[52%] sm:max-w-[55%] text-right">
             <p className="text-[8px] sm:text-[11px] uppercase leading-loose text-bone/70">
               {clientsStyled.map((c, i) => (
