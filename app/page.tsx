@@ -1,13 +1,32 @@
-import { clients, site, homeServices } from "@/lib/content";
+import { site, homeServices } from "@/lib/content";
 import { imageUrl, artGallery } from "@/lib/images";
 import Reveal from "@/components/Reveal";
+
+// Each client gets a weight for typographic intrigue
+const clientsStyled = [
+  { name: "Nelson Makamo",           weight: "font-extrabold" },
+  { name: "Joni Brenner",            weight: "font-extralight" },
+  { name: "Strauss & Co",            weight: "font-bold" },
+  { name: "Warren Siebrits",         weight: "font-light" },
+  { name: "Karel Nel",               weight: "font-extralight" },
+  { name: "Jake Singer",             weight: "font-extrabold" },
+  { name: "Norman Catherine",        weight: "font-light" },
+  { name: "Francis Goodman",         weight: "font-bold" },
+  { name: "Everard Read",            weight: "font-extralight" },
+  { name: "Goodman Gallery",         weight: "font-semibold" },
+  { name: "Anita Makan",             weight: "font-light" },
+  { name: "Riaan Bolt",              weight: "font-extrabold" },
+  { name: "Blank Projects",          weight: "font-extralight" },
+  { name: "Johannesburg Art Gallery",weight: "font-semibold" },
+  { name: "Wits Art Museum",         weight: "font-light" },
+];
 
 export default function Home() {
   const heroVideo = "https://pavzocgkrwbhbrjskaud.supabase.co/storage/v1/object/public/video%20for%20front%20page/T%20H%20A%20K%20A%20T%20H%20A%20%20-%20%20R%20E%20P%20R%20O_3.mp4";
 
   return (
     <>
-      {/* ── HERO ── Full screen video, no overlay, no text */}
+      {/* ── HERO ── Full screen video, no overlay, no text on top */}
       <section
         className="relative overflow-hidden bg-ink"
         style={{ minHeight: "calc(100vh - 68px)" }}
@@ -24,6 +43,8 @@ export default function Home() {
 
         {/* Contact bottom-left, clients bottom-right */}
         <div className="absolute bottom-8 left-0 right-0 z-10 container-x flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">
+
+          {/* Left: contact */}
           <div className="space-y-1">
             <a href={site.contact.phoneHref} className="block text-sm font-light text-bone/75 hover:text-bone transition-colors">
               {site.contact.phone}
@@ -35,11 +56,21 @@ export default function Home() {
               JHB · CPT · South Africa
             </p>
           </div>
-          <div className="max-w-[340px] sm:text-right">
-            <p className="text-[11px] font-light uppercase leading-loose tracking-label text-bone/45">
-              {clients.join("  ·  ")}
+
+          {/* Right: clients — 2 lines desktop, 7 lines mobile */}
+          <div className="sm:max-w-[55%] sm:text-right">
+            <p className="text-[11px] uppercase leading-loose text-bone/70">
+              {clientsStyled.map((c, i) => (
+                <span key={c.name}>
+                  <span className={c.weight}>{c.name.toUpperCase()}</span>
+                  {i < clientsStyled.length - 1 && (
+                    <span className="font-extralight opacity-40">  ·  </span>
+                  )}
+                </span>
+              ))}
             </p>
           </div>
+
         </div>
       </section>
 
