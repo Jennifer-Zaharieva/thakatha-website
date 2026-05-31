@@ -43,7 +43,7 @@ export default function Home() {
 
         {/* Mobile only — Photography & Visual Production centered at top of hero */}
         <div className="absolute top-5 left-0 right-0 z-10 flex justify-center md:hidden">
-          <span className="text-[10px] font-extrabold uppercase tracking-widest text-bone/80 text-center">
+          <span className="text-[4vw] font-extrabold uppercase tracking-wide text-bone/80 whitespace-nowrap">
             Photography & Visual Production
           </span>
         </div>
