@@ -49,7 +49,7 @@ export default function Nav() {
         <div className="hidden items-center gap-9 md:flex">
           {isDark ? (
             /* Dark state — descriptor only, no nav links */
-            <span className="text-[13px] font-light text-bone/70 tracking-wide">
+            <span className="text-[20px] font-extrabold uppercase tracking-wide text-bone">
               Photography & Visual Production
             </span>
           ) : (
