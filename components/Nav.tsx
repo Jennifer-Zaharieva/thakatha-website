@@ -10,12 +10,12 @@ export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
 
-  // On the home page, the hero is black — nav should use white text until scrolled
+  // Dark hero state: home page, not yet scrolled
   const isDark = pathname === "/" && !scrolled;
 
   useEffect(() => {
+    // Don't call immediately — start dark, then update on scroll
     const onScroll = () => setScrolled(window.scrollY > 40);
-    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -24,15 +24,17 @@ export default function Nav() {
     document.body.style.overflow = open ? "hidden" : "";
   }, [open]);
 
-  const headerBg = scrolled
-    ? "bg-bone/90 backdrop-blur-md border-b border-line"
-    : isDark
-    ? "bg-transparent border-b border-white/10"
-    : "bg-transparent border-b border-transparent";
-
   return (
-    <header className={`sticky top-0 z-50 transition-all duration-500 ${headerBg}`}>
+    <header
+      className={`sticky top-0 z-50 transition-all duration-500 ${
+        isDark
+          ? "bg-ink border-b border-white/10"
+          : "bg-bone/90 backdrop-blur-md border-b border-line"
+      }`}
+    >
       <div className="container-x flex h-[68px] items-center justify-between">
+
+        {/* Wordmark */}
         <Link
           href="/"
           onClick={() => setOpen(false)}
@@ -43,31 +45,34 @@ export default function Nav() {
           {site.brand}
         </Link>
 
-        <nav className="hidden items-center gap-9 md:flex">
-          {sections.map((s) => (
-            <Link
-              key={s.slug}
-              href={`/${s.slug}`}
-              className={`label link-underline transition-colors duration-500 ${
-                isDark
-                  ? "text-bone/60 hover:text-bone"
-                  : "text-ink-soft hover:text-ink"
-              }`}
-            >
-              {s.title}
-            </Link>
-          ))}
-          <Link
-            href="/layout-design#brief"
-            className={`rounded-full px-5 py-2.5 text-[11px] font-medium uppercase tracking-label transition-colors duration-300 ${
-              isDark
-                ? "bg-bone text-ink hover:bg-clay hover:text-bone"
-                : "bg-ink text-bone hover:bg-clay-deep"
-            }`}
-          >
-            Get a Quote
-          </Link>
-        </nav>
+        {/* Desktop right side */}
+        <div className="hidden items-center gap-9 md:flex">
+          {isDark ? (
+            /* Dark state — descriptor only, no nav links */
+            <span className="text-[13px] font-light text-bone/70 tracking-wide">
+              Photography & Visual Production
+            </span>
+          ) : (
+            /* Scrolled state — full nav */
+            <>
+              {sections.map((s) => (
+                <Link
+                  key={s.slug}
+                  href={`/${s.slug}`}
+                  className="label link-underline text-ink-soft hover:text-ink"
+                >
+                  {s.title}
+                </Link>
+              ))}
+              <Link
+                href="/layout-design#brief"
+                className="rounded-full bg-ink px-5 py-2.5 text-[11px] font-medium uppercase tracking-label text-bone transition-colors duration-300 hover:bg-clay-deep"
+              >
+                Get a Quote
+              </Link>
+            </>
+          )}
+        </div>
 
         {/* Mobile hamburger */}
         <button
