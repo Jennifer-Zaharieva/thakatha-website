@@ -10,11 +10,9 @@ export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
 
-  // Dark hero state: home page, not yet scrolled
   const isDark = pathname === "/" && !scrolled;
 
   useEffect(() => {
-    // Don't call immediately — start dark, then update on scroll
     const onScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -45,15 +43,20 @@ export default function Nav() {
           {site.brand}
         </Link>
 
+        {/* Mobile centre — Photography & Visual Production (dark state only) */}
+        {isDark && (
+          <span className="text-[8px] font-extrabold uppercase leading-tight tracking-wide text-bone text-center max-w-[130px] md:hidden">
+            Photography &amp; Visual Production
+          </span>
+        )}
+
         {/* Desktop right side */}
         <div className="hidden items-center gap-9 md:flex">
           {isDark ? (
-            /* Dark state — descriptor only, no nav links */
             <span className="text-[20px] font-extrabold uppercase tracking-wide text-bone">
               Photography & Visual Production
             </span>
           ) : (
-            /* Scrolled state — full nav */
             <>
               {sections.map((s) => (
                 <Link
@@ -74,22 +77,14 @@ export default function Nav() {
           )}
         </div>
 
-        {/* Mobile hamburger */}
+        {/* Hamburger */}
         <button
           aria-label="Toggle menu"
           onClick={() => setOpen((v) => !v)}
           className="flex h-10 w-10 flex-col items-center justify-center gap-[5px] md:hidden"
         >
-          <span
-            className={`block h-px w-6 transition-all duration-300 ${
-              isDark ? "bg-bone" : "bg-ink"
-            } ${open ? "translate-y-[3px] rotate-45" : ""}`}
-          />
-          <span
-            className={`block h-px w-6 transition-all duration-300 ${
-              isDark ? "bg-bone" : "bg-ink"
-            } ${open ? "-translate-y-[3px] -rotate-45" : ""}`}
-          />
+          <span className={`block h-px w-6 transition-all duration-300 ${isDark ? "bg-bone" : "bg-ink"} ${open ? "translate-y-[3px] rotate-45" : ""}`} />
+          <span className={`block h-px w-6 transition-all duration-300 ${isDark ? "bg-bone" : "bg-ink"} ${open ? "-translate-y-[3px] -rotate-45" : ""}`} />
         </button>
       </div>
 
