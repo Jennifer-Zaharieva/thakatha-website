@@ -81,7 +81,7 @@ export default function Nav() {
 
       {/* Mobile overlay */}
       <div
-        className={`fixed inset-0 top-[68px] z-[99] bg-[#FBF8F2] transition-opacity duration-300 md:hidden ${
+        className={`fixed left-0 right-0 bottom-0 top-[68px] z-[99] bg-[#FBF8F2] overflow-y-auto transition-opacity duration-300 md:hidden ${
           open ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
         }`}
       >
