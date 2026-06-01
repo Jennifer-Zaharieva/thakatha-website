@@ -92,9 +92,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── SERVICES ── Image above each title */}
-      <section className="container-x py-20 sm:py-28">
-        <div className="grid grid-cols-2 gap-x-6 gap-y-12 sm:grid-cols-3 lg:grid-cols-5">
+      {/* ── SERVICES ── */}
+      <section className="bg-[#EEEAE2] py-20 sm:py-28">
+        <div className="container-x">
+          <div className="grid grid-cols-2 gap-x-6 gap-y-12 sm:grid-cols-3 lg:grid-cols-5">
           {homeServices.map((s, i) => (
             <Reveal key={s.title} delay={i * 60}>
               {/* Image */}
@@ -112,6 +113,7 @@ export default function Home() {
               <p className="mt-2 text-sm font-light leading-relaxed text-ink-faint">{s.desc}</p>
             </Reveal>
           ))}
+        </div>
         </div>
       </section>
 
