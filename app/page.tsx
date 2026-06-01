@@ -98,7 +98,7 @@ export default function Home() {
           <div className="mb-14">
             <p className="label text-clay">Photography Services</p>
             <h2 className="mt-3 text-3xl font-extralight tracking-tight text-ink sm:text-4xl">
-              What We Shoot
+              WHAT WE SHOOT
             </h2>
           </div>
           <div className="grid grid-cols-2 gap-x-6 gap-y-12 sm:grid-cols-3 lg:grid-cols-5">
