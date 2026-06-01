@@ -118,7 +118,7 @@ export default function Home() {
       </section>
 
       {/* ── IMAGE GALLERY ── */}
-      <section className="container-x pb-24">
+      <section className="container-x pt-16 pb-24 sm:pt-24">
         <div className="columns-2 gap-3 sm:columns-3 lg:columns-4 [&>*]:mb-3">
           {artGallery.map((img, i) => (
             <Reveal key={img.file} delay={Math.min(i * 15, 300)}>
