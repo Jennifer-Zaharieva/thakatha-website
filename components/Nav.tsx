@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { site } from "@/lib/content";
 
 const navLinks = [
-  { title: "Art Reproduction",   href: "/art-reproduction" },
+  { title: "Art Reproduction",    href: "/art-reproduction" },
   { title: "Product & E-Commerce", href: "/product" },
   {
     title: "Events",
@@ -49,16 +49,14 @@ export default function Nav() {
   }, []);
 
   return (
-    <div className="sticky top-0 z-[100]">
-      {/* ── Main bar ── */}
+    <>
       <header
-        className={`transition-all duration-500 ${
+        className={`sticky top-0 z-[100] transition-all duration-500 ${
           isDark ? "bg-[#0b0b0b]" : "bg-bone/90 backdrop-blur-md"
         }`}
       >
         <div className="container-x flex h-[68px] items-center justify-between">
 
-          {/* Wordmark */}
           <Link
             href="/"
             onClick={() => setOpen(false)}
@@ -69,7 +67,6 @@ export default function Nav() {
             {site.brand}
           </Link>
 
-          {/* Desktop nav */}
           <nav className="hidden items-center gap-8 md:flex">
             {navLinks.map((link) =>
               link.dropdown ? (
@@ -132,7 +129,6 @@ export default function Nav() {
             </Link>
           </nav>
 
-          {/* Hamburger */}
           <button
             aria-label="Toggle menu"
             onClick={() => setOpen((v) => !v)}
@@ -144,44 +140,42 @@ export default function Nav() {
         </div>
       </header>
 
-      {/* ── Mobile overlay ── */}
-      <div
-        className={`fixed left-0 right-0 bottom-0 top-[68px] overflow-y-auto bg-[#FBF8F2] transition-opacity duration-300 md:hidden ${
-          open ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
-        }`}
-      >
-        <nav className="container-x flex flex-col pt-8">
-          {navLinks.map((link, i) => (
-            <div key={link.title}>
-              <Link
-                href={link.href}
-                onClick={() => setOpen(false)}
-                className="flex items-baseline gap-5 border-b border-line py-5"
-              >
-                <span className="label text-clay">{String(i + 1).padStart(2, "0")}</span>
-                <span className="text-3xl font-extralight tracking-tight text-ink">{link.title}</span>
-              </Link>
-              {link.dropdown && link.dropdown.map((item) => (
+      {/* Mobile overlay */}
+      {open && (
+        <div className="fixed inset-0 top-[68px] z-[99] overflow-y-auto bg-[#FBF8F2] md:hidden">
+          <nav className="container-x flex flex-col pt-8">
+            {navLinks.map((link, i) => (
+              <div key={link.title}>
                 <Link
-                  key={item.title}
-                  href={item.href}
+                  href={link.href}
                   onClick={() => setOpen(false)}
-                  className="flex items-center border-b border-line/50 py-3 pl-10"
+                  className="flex items-baseline gap-5 border-b border-line py-5"
                 >
-                  <span className="text-sm font-light text-ink-faint">{item.title}</span>
+                  <span className="label text-clay">{String(i + 1).padStart(2, "0")}</span>
+                  <span className="text-3xl font-extralight tracking-tight text-ink">{link.title}</span>
                 </Link>
-              ))}
-            </div>
-          ))}
-          <Link
-            href="/publishing-design#brief"
-            onClick={() => setOpen(false)}
-            className="mt-8 inline-flex w-fit rounded-full bg-ink px-7 py-3.5 text-xs font-medium uppercase tracking-label text-bone"
-          >
-            Get a Quote
-          </Link>
-        </nav>
-      </div>
-    </div>
+                {link.dropdown && link.dropdown.map((item) => (
+                  <Link
+                    key={item.title}
+                    href={item.href}
+                    onClick={() => setOpen(false)}
+                    className="flex items-center border-b border-line/50 py-3 pl-10"
+                  >
+                    <span className="text-sm font-light text-ink-faint">{item.title}</span>
+                  </Link>
+                ))}
+              </div>
+            ))}
+            <Link
+              href="/publishing-design#brief"
+              onClick={() => setOpen(false)}
+              className="mt-8 inline-flex w-fit rounded-full bg-ink px-7 py-3.5 text-xs font-medium uppercase tracking-label text-bone"
+            >
+              Get a Quote
+            </Link>
+          </nav>
+        </div>
+      )}
+    </>
   );
 }
