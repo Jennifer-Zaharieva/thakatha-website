@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { site } from "@/lib/content";
 
 const navLinks = [
-  { title: "Art Reproduction", href: "/art-reproduction" },
+  { title: "Art Reproduction",   href: "/art-reproduction" },
   { title: "Product & E-Commerce", href: "/product" },
   {
     title: "Events",
@@ -21,12 +21,12 @@ const navLinks = [
 ];
 
 export default function Nav() {
-  const [open, setOpen]         = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen]             = useState(false);
+  const [scrolled, setScrolled]     = useState(false);
   const [eventsOpen, setEventsOpen] = useState(false);
-  const eventsRef = useRef<HTMLDivElement>(null);
-  const pathname  = usePathname();
-  const isDark    = pathname === "/" && !scrolled;
+  const eventsRef                   = useRef<HTMLDivElement>(null);
+  const pathname                    = usePathname();
+  const isDark                      = pathname === "/" && !scrolled;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -38,7 +38,6 @@ export default function Nav() {
     document.body.style.overflow = open ? "hidden" : "";
   }, [open]);
 
-  // Close events dropdown on outside click
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (eventsRef.current && !eventsRef.current.contains(e.target as Node)) {
@@ -50,9 +49,10 @@ export default function Nav() {
   }, []);
 
   return (
-    <>
+    <div className="sticky top-0 z-[100]">
+      {/* ── Main bar ── */}
       <header
-        className={`sticky top-0 z-[100] transition-all duration-500 ${
+        className={`transition-all duration-500 ${
           isDark ? "bg-[#0b0b0b]" : "bg-bone/90 backdrop-blur-md"
         }`}
       >
@@ -73,7 +73,6 @@ export default function Nav() {
           <nav className="hidden items-center gap-8 md:flex">
             {navLinks.map((link) =>
               link.dropdown ? (
-                /* Events with dropdown */
                 <div
                   key={link.title}
                   ref={eventsRef}
@@ -89,11 +88,11 @@ export default function Nav() {
                   >
                     {link.title}
                   </Link>
-
-                  {/* Dropdown panel */}
                   <div
                     className={`absolute left-0 top-full pt-3 transition-all duration-200 ${
-                      eventsOpen ? "pointer-events-auto opacity-100 translate-y-0" : "pointer-events-none opacity-0 -translate-y-1"
+                      eventsOpen
+                        ? "pointer-events-auto opacity-100 translate-y-0"
+                        : "pointer-events-none opacity-0 -translate-y-1"
                     }`}
                   >
                     <div className="w-52 border border-line bg-paper py-2 shadow-sm">
@@ -121,7 +120,6 @@ export default function Nav() {
                 </Link>
               )
             )}
-
             <Link
               href="/publishing-design#brief"
               className={`rounded-full px-5 py-2.5 text-[11px] font-medium uppercase tracking-label transition-colors duration-300 ${
@@ -146,9 +144,9 @@ export default function Nav() {
         </div>
       </header>
 
-      {/* Mobile overlay — outside header so fixed positioning works when scrolled */}
+      {/* ── Mobile overlay ── */}
       <div
-        className={`fixed left-0 right-0 bottom-0 top-[68px] z-[99] overflow-y-auto bg-[#FBF8F2] transition-opacity duration-300 md:hidden ${
+        className={`fixed left-0 right-0 bottom-0 top-[68px] overflow-y-auto bg-[#FBF8F2] transition-opacity duration-300 md:hidden ${
           open ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
         }`}
       >
@@ -163,13 +161,12 @@ export default function Nav() {
                 <span className="label text-clay">{String(i + 1).padStart(2, "0")}</span>
                 <span className="text-3xl font-extralight tracking-tight text-ink">{link.title}</span>
               </Link>
-              {/* Show dropdown items indented on mobile */}
               {link.dropdown && link.dropdown.map((item) => (
                 <Link
                   key={item.title}
                   href={item.href}
                   onClick={() => setOpen(false)}
-                  className="flex items-center gap-5 border-b border-line/50 py-3 pl-10"
+                  className="flex items-center border-b border-line/50 py-3 pl-10"
                 >
                   <span className="text-sm font-light text-ink-faint">{item.title}</span>
                 </Link>
@@ -185,6 +182,6 @@ export default function Nav() {
           </Link>
         </nav>
       </div>
-    </>
+    </div>
   );
 }
