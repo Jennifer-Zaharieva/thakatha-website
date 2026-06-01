@@ -23,6 +23,7 @@ export default function Nav() {
   }, [open]);
 
   return (
+    <>
     <header
       className={`sticky top-0 z-[100] transition-all duration-500 ${
         isDark ? "bg-[#0b0b0b]" : "bg-bone/90 backdrop-blur-md"
@@ -79,7 +80,9 @@ export default function Nav() {
         </button>
       </div>
 
-      {/* Mobile overlay */}
+    </header>
+
+      {/* Mobile overlay — outside header so it stays fixed when page scrolls */}
       <div
         className={`fixed left-0 right-0 bottom-0 top-[68px] z-[99] bg-[#FBF8F2] overflow-y-auto transition-opacity duration-300 md:hidden ${
           open ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
@@ -106,6 +109,6 @@ export default function Nav() {
           </Link>
         </nav>
       </div>
-    </header>
+    </>
   );
 }
