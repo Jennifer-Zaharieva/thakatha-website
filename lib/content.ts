@@ -50,9 +50,9 @@ export const sections: Section[] = [
     hero: imageUrl("sections/events.jpg", sectionHero.events),
   },
   {
-    slug: "layout-design",
+   slug: "publishing-design",
     index: "04",
-    title: "Layout / Design",
+  title: "Publishing & Design",
     short: "Art catalogues & artists' books.",
     description:
       "Art catalogues and artists' books — considered layout, typesetting and print-ready design that gives the work the page it deserves.",
