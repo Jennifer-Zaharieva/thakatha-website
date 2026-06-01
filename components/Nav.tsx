@@ -24,7 +24,7 @@ export default function Nav() {
 
   return (
     <header
-      className={`sticky top-0 z-50 transition-all duration-500 ${
+      className={`sticky top-0 z-[100] transition-all duration-500 ${
         isDark ? "bg-[#0b0b0b]" : "bg-bone/90 backdrop-blur-md"
       }`}
     >
@@ -81,7 +81,7 @@ export default function Nav() {
 
       {/* Mobile overlay */}
       <div
-        className={`fixed inset-0 top-[68px] z-40 bg-bone transition-opacity duration-300 md:hidden ${
+        className={`fixed inset-0 top-[68px] z-[99] bg-[#FBF8F2] transition-opacity duration-300 md:hidden ${
           open ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
         }`}
       >
