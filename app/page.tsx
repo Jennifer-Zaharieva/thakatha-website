@@ -96,7 +96,8 @@ export default function Home() {
       <section className="bg-[#EEEAE2] py-20 sm:py-28">
         <div className="container-x">
           <div className="mb-14">
-            <h2 className="text-[15px] font-semibold uppercase tracking-wide2 text-ink">
+            <p className="label text-clay">Photography Services</p>
+            <h2 className="mt-3 text-3xl font-extralight tracking-tight text-ink sm:text-4xl">
               What We Shoot
             </h2>
           </div>
