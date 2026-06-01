@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { site } from "@/lib/content";
 
 const navLinks = [
-  { title: "Art Reproduction",    href: "/art-reproduction" },
+  { title: "Art Reproduction",     href: "/art-reproduction" },
   { title: "Product & E-Commerce", href: "/product" },
   {
     title: "Events",
@@ -49,14 +49,14 @@ export default function Nav() {
   }, []);
 
   return (
-    <>
-      <header
+    <nav role="navigation" aria-label="Main">
+      {/* Desktop + mobile bar */}
+      <div
         className={`sticky top-0 z-[100] transition-all duration-500 ${
           isDark ? "bg-[#0b0b0b]" : "bg-bone/90 backdrop-blur-md"
         }`}
       >
         <div className="container-x flex h-[68px] items-center justify-between">
-
           <Link
             href="/"
             onClick={() => setOpen(false)}
@@ -67,7 +67,8 @@ export default function Nav() {
             {site.brand}
           </Link>
 
-          <nav className="hidden items-center gap-8 md:flex">
+          {/* Desktop links */}
+          <div className="hidden items-center gap-8 md:flex">
             {navLinks.map((link) =>
               link.dropdown ? (
                 <div
@@ -85,25 +86,21 @@ export default function Nav() {
                   >
                     {link.title}
                   </Link>
-                  <div
-                    className={`absolute left-0 top-full pt-3 transition-all duration-200 ${
-                      eventsOpen
-                        ? "pointer-events-auto opacity-100 translate-y-0"
-                        : "pointer-events-none opacity-0 -translate-y-1"
-                    }`}
-                  >
-                    <div className="w-52 border border-line bg-paper py-2 shadow-sm">
-                      {link.dropdown.map((item) => (
-                        <Link
-                          key={item.title}
-                          href={item.href}
-                          className="block px-5 py-3 text-[11px] font-medium uppercase tracking-label text-ink-soft transition-colors duration-200 hover:bg-bone hover:text-ink"
-                        >
-                          {item.title}
-                        </Link>
-                      ))}
+                  {eventsOpen && (
+                    <div className="absolute left-0 top-full pt-3">
+                      <div className="w-52 border border-line bg-paper py-2 shadow-sm">
+                        {link.dropdown.map((item) => (
+                          <Link
+                            key={item.title}
+                            href={item.href}
+                            className="block px-5 py-3 text-[11px] font-medium uppercase tracking-label text-ink-soft transition-colors duration-200 hover:bg-bone hover:text-ink"
+                          >
+                            {item.title}
+                          </Link>
+                        ))}
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </div>
               ) : (
                 <Link
@@ -127,8 +124,9 @@ export default function Nav() {
             >
               Get a Quote
             </Link>
-          </nav>
+          </div>
 
+          {/* Hamburger */}
           <button
             aria-label="Toggle menu"
             onClick={() => setOpen((v) => !v)}
@@ -138,12 +136,12 @@ export default function Nav() {
             <span className={`block h-px w-6 transition-all duration-300 ${isDark ? "bg-bone" : "bg-ink"} ${open ? "-translate-y-[3px] -rotate-45" : ""}`} />
           </button>
         </div>
-      </header>
+      </div>
 
-      {/* Mobile overlay */}
+      {/* Mobile overlay — only mounts when open */}
       {open && (
         <div className="fixed inset-0 top-[68px] z-[99] overflow-y-auto bg-[#FBF8F2] md:hidden">
-          <nav className="container-x flex flex-col pt-8">
+          <div className="container-x flex flex-col pt-8">
             {navLinks.map((link, i) => (
               <div key={link.title}>
                 <Link
@@ -173,9 +171,9 @@ export default function Nav() {
             >
               Get a Quote
             </Link>
-          </nav>
+          </div>
         </div>
       )}
-    </>
+    </nav>
   );
 }
