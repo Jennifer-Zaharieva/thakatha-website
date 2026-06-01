@@ -20,21 +20,13 @@ const clientsStyled = [
   { name: "Wits Art Museum",          weight: "font-light" },
 ];
 
-// Fallback images from gallery until you upload your own to Supabase
-const serviceFallbacks = [
-  artGallery[2].fallback,
-  artGallery[4].fallback,
-  artGallery[3].fallback,
-  artGallery[1].fallback,
-  artGallery[7].fallback,
-];
-
-const serviceImageFiles = [
-  "service-art.jpg",
-  "service-product.jpg",
-  "service-events.jpg",
-  "service-portraits.jpg",
-  "service-spaces.jpg",
+// Service images — hosted in Supabase
+const serviceImages = [
+  { src: "https://pavzocgkrwbhbrjskaud.supabase.co/storage/v1/object/public/video%20for%20front%20page/service-art.jpg", alt: "Art Reproduction" },
+  { src: "https://pavzocgkrwbhbrjskaud.supabase.co/storage/v1/object/public/video%20for%20front%20page/service-product.jpg", alt: "Product & E-Commerce" },
+  { src: "https://pavzocgkrwbhbrjskaud.supabase.co/storage/v1/object/public/video%20for%20front%20page/service-events.jpg", alt: "Events & Experiences" },
+  { src: "https://pavzocgkrwbhbrjskaud.supabase.co/storage/v1/object/public/video%20for%20front%20page/service-portraits.jpg", alt: "Portraits & Teams" },
+  { src: "https://pavzocgkrwbhbrjskaud.supabase.co/storage/v1/object/public/video%20for%20front%20page/service-spaces.jpg", alt: "Spaces & Interiors" },
 ];
 
 export default function Home() {
@@ -108,8 +100,8 @@ export default function Home() {
               <div className="mb-4 aspect-[4/3] overflow-hidden bg-line/40">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src={imageUrl(serviceImageFiles[i], serviceFallbacks[i])}
-                  alt={s.title}
+                  src={serviceImages[i].src}
+                  alt={serviceImages[i].alt}
                   loading="lazy"
                   className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
                 />
