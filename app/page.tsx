@@ -95,6 +95,7 @@ export default function Home() {
       {/* ── SERVICES ── */}
       <section className="bg-[#EEEAE2] py-20 sm:py-28">
         <div className="container-x">
+          <p className="label mb-12 text-ink-faint">What We Shoot</p>
           <div className="grid grid-cols-2 gap-x-6 gap-y-12 sm:grid-cols-3 lg:grid-cols-5">
           {homeServices.map((s, i) => (
             <Reveal key={s.title} delay={i * 60}>
