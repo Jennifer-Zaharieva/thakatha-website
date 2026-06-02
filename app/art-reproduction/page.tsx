@@ -71,10 +71,6 @@ export default function ArtReproductionPage() {
 
       {/* Gallery */}
       <section className="container-x py-16">
-        <div className="mb-10 flex items-end justify-between border-b border-line pb-5">
-          <h2 className="label text-ink-soft">Selected Work</h2>
-          <span className="text-sm font-light text-ink-faint">{artGallery.length} pieces</span>
-        </div>
         <Gallery images={artGallery} />
       </section>
 
