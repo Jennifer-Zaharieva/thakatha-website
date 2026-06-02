@@ -52,6 +52,8 @@ export default function ProductPage() {
               <p className="mt-3 text-sm font-light leading-relaxed text-ink-soft">{s.d}</p>
             </Reveal>
           ))}
+          {/* Empty cell to match background */}
+          <div className="bg-bone" />
         </div>
       </section>
 
