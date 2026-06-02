@@ -1,190 +1,148 @@
-"use client";
-
 import Link from "next/link";
-import { useState, useEffect, useRef } from "react";
-import { usePathname } from "next/navigation";
-import { site } from "@/lib/content";
+import { site, homeServices } from "@/lib/content";
+import { imageUrl, artGallery } from "@/lib/images";
+import Reveal from "@/components/Reveal";
 
-const navLinks = [
-  { title: "Art Reproduction", href: "/art-reproduction" },
-  { title: "Product & E-Commerce", href: "/product" },
-  {
-    title: "Events",
-    href: "/events",
-    dropdown: [
-      { title: "Events & Exhibitions", href: "/events" },
-      { title: "Portraits & Teams",    href: "/events" },
-      { title: "Spaces & Interiors",   href: "/events" },
-    ],
-  },
-  { title: "Publishing & Design", href: "/publishing-design" },
+// Page links for each service block
+const serviceLinks = [
+  "/art-reproduction",   // Art Reproduction
+  "/product",            // Product & E-Commerce
+  "/events",             // Events & Experiences
+  "/events",             // Portraits & Teams
+  "/events",             // Spaces & Interiors
 ];
 
-export default function Nav() {
-  const [open, setOpen]         = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [eventsOpen, setEventsOpen] = useState(false);
-  const eventsRef = useRef<HTMLDivElement>(null);
-  const pathname  = usePathname();
-  const isDark    = pathname === "/" && !scrolled;
+const clientsStyled = [
+  { name: "Nelson Makamo",            weight: "font-extrabold" },
+  { name: "Joni Brenner",             weight: "font-extralight" },
+  { name: "Strauss & Co",             weight: "font-bold" },
+  { name: "Warren Siebrits",          weight: "font-light" },
+  { name: "Karel Nel",                weight: "font-extralight" },
+  { name: "Jake Singer",              weight: "font-extrabold" },
+  { name: "Norman Catherine",         weight: "font-light" },
+  { name: "Francis Goodman",          weight: "font-bold" },
+  { name: "Everard Read",             weight: "font-extralight" },
+  { name: "Goodman Gallery",          weight: "font-semibold" },
+  { name: "Anita Makan",              weight: "font-light" },
+  { name: "Riaan Bolt",               weight: "font-extrabold" },
+  { name: "Blank Projects",           weight: "font-extralight" },
+  { name: "Johannesburg Art Gallery", weight: "font-semibold" },
+  { name: "Wits Art Museum",          weight: "font-light" },
+];
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+// Service images — hosted in Supabase
+const serviceImages = [
+  { src: "https://pavzocgkrwbhbrjskaud.supabase.co/storage/v1/object/public/video%20for%20front%20page/service-art.jpg", alt: "Art Reproduction" },
+  { src: "https://pavzocgkrwbhbrjskaud.supabase.co/storage/v1/object/public/video%20for%20front%20page/service-product.jpg", alt: "Product & E-Commerce" },
+  { src: "https://pavzocgkrwbhbrjskaud.supabase.co/storage/v1/object/public/video%20for%20front%20page/service-events.jpg", alt: "Events & Experiences" },
+  { src: "https://pavzocgkrwbhbrjskaud.supabase.co/storage/v1/object/public/video%20for%20front%20page/service-portraits.jpg", alt: "Portraits & Teams" },
+  { src: "https://pavzocgkrwbhbrjskaud.supabase.co/storage/v1/object/public/video%20for%20front%20page/service-spaces.jpg", alt: "Spaces & Interiors" },
+];
 
-  useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
-  }, [open]);
-
-  // Close events dropdown on outside click
-  useEffect(() => {
-    const handler = (e: MouseEvent) => {
-      if (eventsRef.current && !eventsRef.current.contains(e.target as Node)) {
-        setEventsOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
-  }, []);
+export default function Home() {
+  const heroVideo = "https://pavzocgkrwbhbrjskaud.supabase.co/storage/v1/object/public/video%20for%20front%20page/T%20H%20A%20K%20A%20T%20H%20A%20%20-%20%20R%20E%20P%20R%20O_3.mp4";
 
   return (
     <>
-      <header
-        className={`sticky top-0 z-[100] transition-all duration-500 ${
-          isDark ? "bg-[#0b0b0b]" : "bg-bone/90 backdrop-blur-md"
-        }`}
+      {/* ── HERO ── */}
+      <section
+        className="relative overflow-hidden bg-ink"
+        style={{ height: "calc(100dvh - 68px)" }}
       >
-        <div className="container-x flex h-[68px] items-center justify-between">
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 h-full w-full object-cover object-top sm:object-center"
+        >
+          <source src={heroVideo} type="video/mp4" />
+        </video>
 
-          {/* Wordmark */}
-          <Link
-            href="/"
-            onClick={() => setOpen(false)}
-            className={`text-[15px] font-semibold uppercase tracking-wide2 transition-colors duration-500 ${
-              isDark ? "text-bone" : "text-ink"
-            }`}
-          >
-            {site.brand}
-          </Link>
-
-          {/* Desktop nav */}
-          <nav className="hidden items-center gap-8 md:flex">
-            {navLinks.map((link) =>
-              link.dropdown ? (
-                /* Events with dropdown */
-                <div
-                  key={link.title}
-                  ref={eventsRef}
-                  className="relative"
-                  onMouseEnter={() => setEventsOpen(true)}
-                  onMouseLeave={() => setEventsOpen(false)}
-                >
-                  <Link
-                    href={link.href}
-                    className={`label link-underline transition-colors duration-300 ${
-                      isDark ? "text-bone/60 hover:text-bone" : "text-ink-soft hover:text-ink"
-                    }`}
-                  >
-                    {link.title}
-                  </Link>
-
-                  {/* Dropdown panel */}
-                  <div
-                    className={`absolute left-0 top-full pt-3 transition-all duration-200 ${
-                      eventsOpen ? "pointer-events-auto opacity-100 translate-y-0" : "pointer-events-none opacity-0 -translate-y-1"
-                    }`}
-                  >
-                    <div className="w-52 border border-line bg-paper py-2 shadow-sm">
-                      {link.dropdown.map((item) => (
-                        <Link
-                          key={item.title}
-                          href={item.href}
-                          className="block px-5 py-3 text-[11px] font-medium uppercase tracking-label text-ink-soft transition-colors duration-200 hover:bg-bone hover:text-ink"
-                        >
-                          {item.title}
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                <Link
-                  key={link.title}
-                  href={link.href}
-                  className={`label link-underline transition-colors duration-300 ${
-                    isDark ? "text-bone/60 hover:text-bone" : "text-ink-soft hover:text-ink"
-                  }`}
-                >
-                  {link.title}
-                </Link>
-              )
-            )}
-
-            <Link
-              href="/publishing-design#brief"
-              className={`rounded-full px-5 py-2.5 text-[11px] font-medium uppercase tracking-label transition-colors duration-300 ${
-                isDark
-                  ? "bg-bone text-ink hover:bg-clay hover:text-bone"
-                  : "bg-ink text-bone hover:bg-clay-deep"
-              }`}
-            >
-              Get a Quote
-            </Link>
-          </nav>
-
-          {/* Hamburger */}
-          <button
-            aria-label="Toggle menu"
-            onClick={() => setOpen((v) => !v)}
-            className="flex h-10 w-10 flex-col items-center justify-center gap-[5px] md:hidden"
-          >
-            <span className={`block h-px w-6 transition-all duration-300 ${isDark ? "bg-bone" : "bg-ink"} ${open ? "translate-y-[3px] rotate-45" : ""}`} />
-            <span className={`block h-px w-6 transition-all duration-300 ${isDark ? "bg-bone" : "bg-ink"} ${open ? "-translate-y-[3px] -rotate-45" : ""}`} />
-          </button>
+        {/* Mobile only — centered at top of hero */}
+        <div className="absolute top-5 left-0 right-0 z-10 flex justify-center md:hidden">
+          <span className="text-[4vw] font-extrabold uppercase tracking-wide text-bone/80 whitespace-nowrap">
+            Photography & Visual Production
+          </span>
         </div>
-      </header>
 
-      {/* Mobile overlay — outside header so fixed positioning works when scrolled */}
-      <div
-        className={`fixed left-0 right-0 bottom-0 top-[68px] z-[99] overflow-y-auto bg-[#FBF8F2] transition-opacity duration-300 md:hidden ${
-          open ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
-        }`}
-      >
-        <nav className="container-x flex flex-col pt-8">
-          {navLinks.map((link, i) => (
-            <div key={link.title}>
-              <Link
-                href={link.href}
-                onClick={() => setOpen(false)}
-                className="flex items-baseline gap-5 border-b border-line py-5"
-              >
-                <span className="label text-clay">{String(i + 1).padStart(2, "0")}</span>
-                <span className="text-3xl font-extralight tracking-tight text-ink">{link.title}</span>
-              </Link>
-              {/* Show dropdown items indented on mobile */}
-              {link.dropdown && link.dropdown.map((item) => (
-                <Link
-                  key={item.title}
-                  href={item.href}
-                  onClick={() => setOpen(false)}
-                  className="flex items-center gap-5 border-b border-line/50 py-3 pl-10"
-                >
-                  <span className="text-sm font-light text-ink-faint">{item.title}</span>
-                </Link>
+        {/* Bottom: contact left, clients right */}
+        <div className="absolute bottom-6 left-0 right-0 z-10 container-x flex flex-row items-end justify-between gap-4">
+          <div className="space-y-0.5">
+            <a href={site.contact.phoneHref} className="block text-[11px] sm:text-sm font-light text-bone/75 hover:text-bone transition-colors">
+              {site.contact.phone}
+            </a>
+            <a href={`mailto:${site.contact.email}`} className="block text-[11px] sm:text-sm font-light text-bone/75 hover:text-bone transition-colors">
+              {site.contact.email}
+            </a>
+            <p className="pt-1 text-[9px] sm:text-[11px] uppercase tracking-label text-bone/40">
+              JHB · CPT · South Africa
+            </p>
+          </div>
+          <div className="max-w-[52%] sm:max-w-[55%] text-right">
+            <p className="text-[8px] sm:text-[11px] uppercase leading-loose text-bone/70">
+              {clientsStyled.map((c, i) => (
+                <span key={c.name}>
+                  <span className={c.weight}>{c.name.toUpperCase()}</span>
+                  {i < clientsStyled.length - 1 && (
+                    <span className="font-extralight opacity-40">  ·  </span>
+                  )}
+                </span>
               ))}
-            </div>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ── SERVICES ── */}
+      <section className="bg-[#EEEAE2] py-20 sm:py-28">
+        <div className="container-x">
+          <div className="mb-14">
+            <p className="label text-clay">Photography Services</p>
+            <h2 className="mt-3 text-3xl font-extralight tracking-tight text-ink sm:text-4xl">
+              WHAT WE SHOOT
+            </h2>
+          </div>
+          <div className="grid grid-cols-2 gap-x-6 gap-y-12 sm:grid-cols-3 lg:grid-cols-5">
+          {homeServices.map((s, i) => (
+            <Reveal key={s.title} delay={i * 60}>
+              <Link href={serviceLinks[i]} className="group block">
+                {/* Image */}
+                <div className="mb-4 aspect-[4/3] overflow-hidden bg-line/40">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={serviceImages[i].src}
+                    alt={serviceImages[i].alt}
+                    loading="lazy"
+                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                </div>
+                {/* Text */}
+                <h3 className="text-sm font-medium text-ink transition-colors group-hover:text-clay">{s.title}</h3>
+                <p className="mt-2 text-sm font-light leading-relaxed text-ink-faint">{s.desc}</p>
+              </Link>
+            </Reveal>
           ))}
-          <Link
-            href="/publishing-design#brief"
-            onClick={() => setOpen(false)}
-            className="mt-8 inline-flex w-fit rounded-full bg-ink px-7 py-3.5 text-xs font-medium uppercase tracking-label text-bone"
-          >
-            Get a Quote
-          </Link>
-        </nav>
-      </div>
+        </div>
+        </div>
+      </section>
+
+      {/* ── IMAGE GALLERY ── */}
+      <section className="container-x pt-16 pb-24 sm:pt-24">
+        <div className="columns-2 gap-3 sm:columns-3 lg:columns-4 [&>*]:mb-3">
+          {artGallery.map((img, i) => (
+            <Reveal key={img.file} delay={Math.min(i * 15, 300)}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={imageUrl(img.file, img.fallback)}
+                alt={img.alt}
+                loading="lazy"
+                className="w-full object-cover transition-transform duration-700 hover:scale-[1.03]"
+              />
+            </Reveal>
+          ))}
+        </div>
+      </section>
     </>
   );
 }
