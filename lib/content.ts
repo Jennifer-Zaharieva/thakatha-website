@@ -50,9 +50,9 @@ export const sections: Section[] = [
     hero: imageUrl("sections/events.jpg", sectionHero.events),
   },
   {
-   slug: "publishing-design",
+    slug: "publishing-design",
     index: "04",
-  title: "Publishing & Design",
+    title: "Publishing & Design",
     short: "Art catalogues & artists' books.",
     description:
       "Art catalogues and artists' books — considered layout, typesetting and print-ready design that gives the work the page it deserves.",
@@ -62,11 +62,11 @@ export const sections: Section[] = [
 
 /** Services displayed on the landing page — table format, no lines. */
 export const homeServices = [
-  { title: "Art Reproduction", desc: "Technical precision." },
-  { title: "Product & E-Commerce", desc: "Brands & products." },
-  { title: "Events & Experiences", desc: "Launches, openings & corporate events." },
-  { title: "Portraits & Teams", desc: "Founders, teams & editorial portraits." },
-  { title: "Spaces & Interiors", desc: "Hotels, galleries & interiors." },
+  { title: "Art Reproduction", desc: "Colour-accurate photography for paintings, sculpture and artworks." },
+  { title: "Product & E-Commerce", desc: "Clean, high-end product photography for brands and online stores." },
+  { title: "Events & Experiences", desc: "Gallery openings, launches, fairs and corporate events." },
+  { title: "Portraits & Teams", desc: "Portraits for artists, founders, teams and creative brands." },
+  { title: "Spaces & Interiors", desc: "Hotels, galleries, interiors and architectural spaces." },
 ];
 
 /** Galleries, artists and institutions the studio has worked with. */
