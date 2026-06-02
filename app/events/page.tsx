@@ -8,7 +8,7 @@ import { artGallery } from "@/lib/images";
 export const metadata: Metadata = {
   title: "Events Photography",
   description:
-    "Photography for exhibition openings, launches, fairs, artist portraits and interior spaces.",
+    "Photography for exhibition openings, launches, fairs, artist and corporate portraits and interior spaces.",
 };
 
 const services = [
