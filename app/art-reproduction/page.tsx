@@ -45,6 +45,7 @@ export default function ArtReproductionPage() {
 
       {/* Offerings grid */}
       <section className="container-x py-10">
+        <h2 className="mb-8 text-[15px] font-semibold uppercase tracking-wide2 text-ink">What We Shoot</h2>
         <div className="grid gap-px overflow-hidden border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
           {offerings.map((o, i) => (
             <Reveal key={o.t} delay={i * 50} className="bg-bone p-8">
