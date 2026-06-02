@@ -6,25 +6,25 @@ import BriefForm from "@/components/BriefForm";
 export const metadata: Metadata = {
   title: "Publishing & Design — Catalogues & Artists' Books",
   description:
-    "Art catalogues and artists' books — considered layout, typesetting and print-ready design. Send us your brief and we'll return a tailored quote.",
+    "Art catalogues, artist books, collection books and printed material: from layout and image sequencing to print preparation and final production.",
 };
 
 const services = [
   {
-    t: "Art catalogues",
-    d: "Exhibition and collection catalogues — sequencing, plates, essays and indices, set for print.",
+    t: "Art Catalogues",
+    d: "Exhibition and collection catalogues including image layout, essays, artwork sequencing and print preparation.",
   },
   {
-    t: "Artists' books",
-    d: "Monographs and limited editions designed around the artist's work and voice.",
+    t: "Artist & Collection Books",
+    d: "Artist books, private collection books and custom publications designed around the work, imagery and archive.",
   },
   {
-    t: "Typesetting & layout",
-    d: "Considered grids and typography that give each work the page it deserves.",
+    t: "Catalogue Layout & Design",
+    d: "Clean, considered layouts for catalogues, books and printed material.",
   },
   {
-    t: "Print-ready production",
-    d: "Pre-press, colour management and printer liaison through to the finished object.",
+    t: "Print Preparation & Production",
+    d: "Preparing files for print and coordinating production through to the final printed result.",
   },
 ];
 
@@ -34,10 +34,11 @@ export default function PublishingDesignPage() {
       <PageHero
         kicker="Print & Editorial"
         title="Publishing & Design"
-        lead="Art catalogues and artists' books — considered layout, typesetting and print-ready design that gives the work the page it deserves. Tell us about your project below and we'll send back a tailored quote by email."
+        lead="Art catalogues, artist books, collection books and printed material: from layout and image sequencing to print preparation and final production. We create publication-ready books, catalogues and editorial material for galleries, artists, exhibitions, collections and private clients."
       />
 
       <section className="container-x py-10">
+        <h2 className="mb-8 text-[15px] font-semibold uppercase tracking-wide2 text-ink">What We Do</h2>
         <div className="grid gap-px overflow-hidden border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
           {services.map((s, i) => (
             <Reveal key={s.t} delay={i * 50} className="bg-bone p-8">
