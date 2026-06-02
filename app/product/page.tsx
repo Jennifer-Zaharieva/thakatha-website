@@ -1,28 +1,36 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import PageHero from "@/components/PageHero";
+import Gallery from "@/components/Gallery";
 import Reveal from "@/components/Reveal";
-import { imageUrl, artGallery } from "@/lib/images";
+import { artGallery } from "@/lib/images";
 
 export const metadata: Metadata = {
   title: "Product / E-commerce Photography",
   description:
-    "High-resolution product imagery for online stores, lookbooks and catalogues — packshots, flat-lays, 360° spins and lifestyle sets.",
+    "Clean, high-resolution product photography for online stores, catalogues and marketplace listings.",
 };
 
-// Blocks 2–4 removed per brief. Keeping: Pure-white packshots, Detail & macro, Retouching & batch delivery.
 const services = [
   {
-    t: "Pure-white packshots",
-    d: "Clean, consistent product shots on seamless white — marketplace-ready (Takealot, Amazon, Shopify).",
+    t: "Pure-White Packshots",
+    d: "Clean product photography on seamless white backgrounds for online stores and catalogues.",
   },
   {
-    t: "Detail & macro",
-    d: "Close-ups of texture, finish, stitching and material — the things that justify the price.",
+    t: "Detail & Macro",
+    d: "Close-up imagery that captures texture, finish and material detail.",
   },
   {
-    t: "Retouching & batch delivery",
-    d: "Colour-matched, cleaned and exported to your exact platform specs.",
+    t: "Batch Photography",
+    d: "Consistent multi-product photography prepared for collections, inventories and online listings.",
+  },
+  {
+    t: "Retouching & Exporting",
+    d: "Colour-corrected, cleaned and delivered to your required specifications.",
+  },
+  {
+    t: "Catalogue & Publishing Use",
+    d: "Product imagery prepared for catalogues, editorial layouts and printed material.",
   },
 ];
 
@@ -31,54 +39,25 @@ export default function ProductPage() {
     <>
       <PageHero
         title="Product / E-commerce"
-        lead="High-resolution product imagery for online stores, lookbooks and catalogues — styled, lit and retouched to convert browsers into buyers. From clean marketplace packshots to editorial lifestyle sets, delivered to your platform's exact specifications."
+        lead="Clean, high-resolution product photography for online stores, catalogues and marketplace listings. We create consistent white-background imagery prepared for e-commerce platforms, publishing and digital use."
       />
 
-      {/* Feature band image */}
-      <section className="container-x py-6">
-        <Reveal className="relative aspect-[16/7] overflow-hidden">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={imageUrl("sections/product-band.jpg", artGallery[4].fallback)}
-            alt="Product photography"
-            className="h-full w-full object-cover"
-          />
-        </Reveal>
-      </section>
-
-      {/* Services grid — no numbers */}
-      <section className="container-x py-12">
-        <h2 className="label mb-8 text-ink-soft">What we shoot</h2>
-        <div className="grid gap-px overflow-hidden border border-line bg-line sm:grid-cols-3">
+      {/* Services grid */}
+      <section className="container-x py-10">
+        <h2 className="mb-8 text-[15px] font-semibold uppercase tracking-wide2 text-ink">What We Shoot</h2>
+        <div className="grid gap-px overflow-hidden border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
           {services.map((s, i) => (
             <Reveal key={s.t} delay={i * 50} className="bg-bone p-8">
               <h3 className="text-xl font-light">{s.t}</h3>
-              <p className="mt-3 text-sm font-light leading-relaxed text-ink-soft">
-                {s.d}
-              </p>
+              <p className="mt-3 text-sm font-light leading-relaxed text-ink-soft">{s.d}</p>
             </Reveal>
           ))}
         </div>
       </section>
 
-      {/* Process */}
-      <section className="container-x py-12">
-        <div className="grid gap-10 border-t border-line pt-12 md:grid-cols-2">
-          <h2 className="text-4xl font-extralight tracking-tight sm:text-5xl">
-            A repeatable look, at scale.
-          </h2>
-          <div className="space-y-6 text-base font-light leading-relaxed text-ink-soft">
-            <p>
-              Whether it's ten hero products or a thousand SKUs, we build a
-              lighting and styling template so every image in your catalogue
-              feels like it belongs to the same brand.
-            </p>
-            <p>
-              Files arrive named, colour-corrected and sized for web, print and
-              each marketplace — ready to drop straight into your store.
-            </p>
-          </div>
-        </div>
+      {/* Gallery */}
+      <section className="container-x py-16">
+        <Gallery images={artGallery} />
       </section>
 
       <section className="container-x pb-8">
@@ -87,7 +66,7 @@ export default function ProductPage() {
             Building or refreshing your online store?
           </p>
           <Link
-            href="/layout-design#brief"
+            href="/publishing-design#brief"
             className="inline-flex shrink-0 items-center gap-3 rounded-full bg-ink px-7 py-4 text-xs font-medium uppercase tracking-label text-bone transition-colors duration-300 hover:bg-clay-deep"
           >
             Request a quote <span>→</span>
