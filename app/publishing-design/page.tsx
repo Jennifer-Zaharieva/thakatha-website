@@ -1,181 +1,75 @@
-"use client";
+import type { Metadata } from "next";
+import PageHero from "@/components/PageHero";
+import Reveal from "@/components/Reveal";
+import BriefForm from "@/components/BriefForm";
 
-import Link from "next/link";
-import { useState, useEffect, useRef } from "react";
-import { usePathname } from "next/navigation";
-import { site } from "@/lib/content";
+export const metadata: Metadata = {
+  title: "Publishing & Design — Catalogues & Artists' Books",
+  description:
+    "Art catalogues and artists' books — considered layout, typesetting and print-ready design. Send us your brief and we'll return a tailored quote.",
+};
 
-const navLinks = [
-  { title: "Art Reproduction",    href: "/art-reproduction" },
-  { title: "Product & E-Commerce", href: "/product" },
+const services = [
   {
-    title: "Events",
-    href: "/events",
-    dropdown: [
-      { title: "Events & Exhibitions", href: "/events" },
-      { title: "Portraits & Teams",    href: "/events" },
-      { title: "Spaces & Interiors",   href: "/events" },
-    ],
+    t: "Art catalogues",
+    d: "Exhibition and collection catalogues — sequencing, plates, essays and indices, set for print.",
   },
-  { title: "Publishing & Design", href: "/publishing-design" },
+  {
+    t: "Artists' books",
+    d: "Monographs and limited editions designed around the artist's work and voice.",
+  },
+  {
+    t: "Typesetting & layout",
+    d: "Considered grids and typography that give each work the page it deserves.",
+  },
+  {
+    t: "Print-ready production",
+    d: "Pre-press, colour management and printer liaison through to the finished object.",
+  },
 ];
 
-export default function Nav() {
-  const [open, setOpen]             = useState(false);
-  const [scrolled, setScrolled]     = useState(false);
-  const [eventsOpen, setEventsOpen] = useState(false);
-  const eventsRef                   = useRef<HTMLDivElement>(null);
-  const pathname                    = usePathname();
-  const isDark                      = pathname === "/" && !scrolled;
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
-  }, [open]);
-
-  useEffect(() => {
-    const handler = (e: MouseEvent) => {
-      if (eventsRef.current && !eventsRef.current.contains(e.target as Node)) {
-        setEventsOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
-  }, []);
-
+export default function PublishingDesignPage() {
   return (
     <>
-      <header
-        className={`sticky top-0 z-[100] transition-all duration-500 ${
-          isDark ? "bg-[#0b0b0b]" : "bg-bone/90 backdrop-blur-md"
-        }`}
-      >
-        <div className="container-x flex h-[68px] items-center justify-between">
+      <PageHero
+        kicker="Print & Editorial"
+        title="Publishing & Design"
+        lead="Art catalogues and artists' books — considered layout, typesetting and print-ready design that gives the work the page it deserves. Tell us about your project below and we'll send back a tailored quote by email."
+      />
 
-          <Link
-            href="/"
-            onClick={() => setOpen(false)}
-            className={`text-[15px] font-semibold uppercase tracking-wide2 transition-colors duration-500 ${
-              isDark ? "text-bone" : "text-ink"
-            }`}
-          >
-            {site.brand}
-          </Link>
-
-          <nav className="hidden items-center gap-8 md:flex">
-            {navLinks.map((link) =>
-              link.dropdown ? (
-                <div
-                  key={link.title}
-                  ref={eventsRef}
-                  className="relative"
-                  onMouseEnter={() => setEventsOpen(true)}
-                  onMouseLeave={() => setEventsOpen(false)}
-                >
-                  <Link
-                    href={link.href}
-                    className={`label link-underline transition-colors duration-300 ${
-                      isDark ? "text-bone/60 hover:text-bone" : "text-ink-soft hover:text-ink"
-                    }`}
-                  >
-                    {link.title}
-                  </Link>
-                  <div
-                    className={`absolute left-0 top-full pt-3 transition-all duration-200 ${
-                      eventsOpen
-                        ? "pointer-events-auto opacity-100 translate-y-0"
-                        : "pointer-events-none opacity-0 -translate-y-1"
-                    }`}
-                  >
-                    <div className="w-52 border border-line bg-paper py-2 shadow-sm">
-                      {link.dropdown.map((item) => (
-                        <Link
-                          key={item.title}
-                          href={item.href}
-                          className="block px-5 py-3 text-[11px] font-medium uppercase tracking-label text-ink-soft transition-colors duration-200 hover:bg-bone hover:text-ink"
-                        >
-                          {item.title}
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                <Link
-                  key={link.title}
-                  href={link.href}
-                  className={`label link-underline transition-colors duration-300 ${
-                    isDark ? "text-bone/60 hover:text-bone" : "text-ink-soft hover:text-ink"
-                  }`}
-                >
-                  {link.title}
-                </Link>
-              )
-            )}
-            <Link
-              href="/publishing-design#brief"
-              className={`rounded-full px-5 py-2.5 text-[11px] font-medium uppercase tracking-label transition-colors duration-300 ${
-                isDark
-                  ? "bg-bone text-ink hover:bg-clay hover:text-bone"
-                  : "bg-ink text-bone hover:bg-clay-deep"
-              }`}
-            >
-              Get a Quote
-            </Link>
-          </nav>
-
-          <button
-            aria-label="Toggle menu"
-            onClick={() => setOpen((v) => !v)}
-            className="flex h-10 w-10 flex-col items-center justify-center gap-[5px] md:hidden"
-          >
-            <span className={`block h-px w-6 transition-all duration-300 ${isDark ? "bg-bone" : "bg-ink"} ${open ? "translate-y-[3px] rotate-45" : ""}`} />
-            <span className={`block h-px w-6 transition-all duration-300 ${isDark ? "bg-bone" : "bg-ink"} ${open ? "-translate-y-[3px] -rotate-45" : ""}`} />
-          </button>
+      <section className="container-x py-10">
+        <div className="grid gap-px overflow-hidden border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
+          {services.map((s, i) => (
+            <Reveal key={s.t} delay={i * 50} className="bg-bone p-8">
+              <h3 className="text-xl font-light">{s.t}</h3>
+              <p className="mt-3 text-sm font-light leading-relaxed text-ink-soft">{s.d}</p>
+            </Reveal>
+          ))}
         </div>
-      </header>
+      </section>
 
-      {/* Mobile overlay */}
-      {open && (
-        <div className="fixed inset-0 top-[68px] z-[99] overflow-y-auto bg-[#FBF8F2] md:hidden">
-          <nav className="container-x flex flex-col pt-8">
-            {navLinks.map((link, i) => (
-              <div key={link.title}>
-                <Link
-                  href={link.href}
-                  onClick={() => setOpen(false)}
-                  className="flex items-baseline gap-5 border-b border-line py-5"
-                >
-                  <span className="label text-clay">{String(i + 1).padStart(2, "0")}</span>
-                  <span className="text-3xl font-extralight tracking-tight text-ink">{link.title}</span>
-                </Link>
-                {link.dropdown && link.dropdown.map((item) => (
-                  <Link
-                    key={item.title}
-                    href={item.href}
-                    onClick={() => setOpen(false)}
-                    className="flex items-center border-b border-line/50 py-3 pl-10"
-                  >
-                    <span className="text-sm font-light text-ink-faint">{item.title}</span>
-                  </Link>
-                ))}
+      <section id="brief" className="container-x scroll-mt-24 py-16">
+        <div className="grid gap-12 lg:grid-cols-12">
+          <div className="lg:col-span-4">
+            <Reveal>
+              <p className="label text-clay">The Brief</p>
+              <h2 className="display mt-5 text-4xl sm:text-5xl">Tell us what you need.</h2>
+              <p className="mt-6 max-w-prose2 text-base font-light leading-relaxed text-ink-soft">
+                A few quick questions so we can scope your project accurately. The more detail you give, the sharper the quote — and you can always call us to talk it through.
+              </p>
+              <div className="mt-8 space-y-1 text-sm font-light text-ink-soft">
+                <a href="tel:+27657199045" className="link-underline block">+27 65 71 99 045</a>
+                <a href="mailto:thakatha.repro@gmail.com" className="link-underline block">thakatha.repro@gmail.com</a>
               </div>
-            ))}
-            <Link
-              href="/publishing-design#brief"
-              onClick={() => setOpen(false)}
-              className="mt-8 inline-flex w-fit rounded-full bg-ink px-7 py-3.5 text-xs font-medium uppercase tracking-label text-bone"
-            >
-              Get a Quote
-            </Link>
-          </nav>
+            </Reveal>
+          </div>
+          <div className="lg:col-span-7 lg:col-start-6">
+            <Reveal delay={120}>
+              <BriefForm />
+            </Reveal>
+          </div>
         </div>
-      )}
+      </section>
     </>
   );
 }
