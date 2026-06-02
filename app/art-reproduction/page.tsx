@@ -40,7 +40,7 @@ export default function ArtReproductionPage() {
       <PageHero
         kicker="Fine Art"
         title="Art Reproduction"
-        lead="Paintings, sculpture, books and works on paper — plus in-situ gallery shots and artist portraits. We capture each piece with colour-accurate, archival precision so the reproduction is faithful to the original, on screen and in print."
+        lead="Colour-accurate photography for artworks, exhibitions, catalogues and artist documentation. We photograph paintings, sculpture, books and installations with archival precision for print, digital and collection records."
       />
 
       {/* Offerings grid — no numbers */}
