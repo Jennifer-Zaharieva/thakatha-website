@@ -1,22 +1,32 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { site } from "@/lib/content";
 
 const links = [
   { title: "Art Reproduction",     href: "/art-reproduction" },
   { title: "Product & E-Commerce", href: "/product" },
-  { title: "Events",               href: "/events" },
+  {
+    title: "Events",
+    href: "/events",
+    dropdown: [
+      { title: "Events & Exhibitions", href: "/events" },
+      { title: "Portraits & Teams",    href: "/events" },
+      { title: "Spaces & Interiors",   href: "/events" },
+    ],
+  },
   { title: "Publishing & Design",  href: "/publishing-design" },
 ];
 
 export default function Nav() {
-  const [open, setOpen]       = useState(false);
+  const [open, setOpen]         = useState(false);
+  const [eventsOpen, setEventsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const pathname              = usePathname();
-  const isDark                = pathname === "/" && !scrolled;
+  const eventsRef               = useRef<HTMLDivElement>(null);
+  const pathname                = usePathname();
+  const isDark                  = pathname === "/" && !scrolled;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -27,6 +37,16 @@ export default function Nav() {
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
   }, [open]);
+
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (eventsRef.current && !eventsRef.current.contains(e.target as Node)) {
+        setEventsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, []);
 
   return (
     <header
@@ -54,15 +74,47 @@ export default function Nav() {
             </span>
           ) : (
             <>
-              {links.map((l) => (
-                <Link
-                  key={l.href}
-                  href={l.href}
-                  className="label link-underline text-ink-soft hover:text-ink"
-                >
-                  {l.title}
-                </Link>
-              ))}
+              {links.map((l) =>
+                l.dropdown ? (
+                  <div
+                    key={l.href}
+                    ref={eventsRef}
+                    className="relative"
+                    onMouseEnter={() => setEventsOpen(true)}
+                    onMouseLeave={() => setEventsOpen(false)}
+                  >
+                    <Link
+                      href={l.href}
+                      className="label link-underline text-ink-soft hover:text-ink"
+                    >
+                      {l.title}
+                    </Link>
+                    {eventsOpen && (
+                      <div className="absolute left-0 top-full pt-3">
+                        <div className="w-52 border border-line bg-paper py-2 shadow-sm">
+                          {l.dropdown.map((item) => (
+                            <Link
+                              key={item.title}
+                              href={item.href}
+                              className="block px-5 py-3 text-[11px] font-medium uppercase tracking-label text-ink-soft transition-colors duration-200 hover:bg-bone hover:text-ink"
+                            >
+                              {item.title}
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <Link
+                    key={l.href}
+                    href={l.href}
+                    className="label link-underline text-ink-soft hover:text-ink"
+                  >
+                    {l.title}
+                  </Link>
+                )
+              )}
               <Link
                 href="/publishing-design#brief"
                 className="rounded-full bg-ink px-5 py-2.5 text-[11px] font-medium uppercase tracking-label text-bone transition-colors duration-300 hover:bg-clay-deep"
@@ -89,15 +141,26 @@ export default function Nav() {
         <div className="fixed inset-0 top-[68px] z-[99] overflow-y-auto bg-[#FBF8F2] md:hidden">
           <div className="container-x flex flex-col pt-8">
             {links.map((l, i) => (
-              <Link
-                key={l.href}
-                href={l.href}
-                onClick={() => setOpen(false)}
-                className="flex items-baseline gap-5 border-b border-line py-5"
-              >
-                <span className="label text-clay">{String(i + 1).padStart(2, "0")}</span>
-                <span className="text-3xl font-extralight tracking-tight text-ink">{l.title}</span>
-              </Link>
+              <div key={l.href}>
+                <Link
+                  href={l.href}
+                  onClick={() => setOpen(false)}
+                  className="flex items-baseline gap-5 border-b border-line py-5"
+                >
+                  <span className="label text-clay">{String(i + 1).padStart(2, "0")}</span>
+                  <span className="text-3xl font-extralight tracking-tight text-ink">{l.title}</span>
+                </Link>
+                {l.dropdown && l.dropdown.map((item) => (
+                  <Link
+                    key={item.title}
+                    href={item.href}
+                    onClick={() => setOpen(false)}
+                    className="flex items-center border-b border-line/50 py-3 pl-10"
+                  >
+                    <span className="text-sm font-light text-ink-faint">{item.title}</span>
+                  </Link>
+                ))}
+              </div>
             ))}
             <Link
               href="/publishing-design#brief"
