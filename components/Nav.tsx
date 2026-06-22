@@ -18,6 +18,7 @@ const links = [
     ],
   },
   { title: "Publishing & Design",  href: "/publishing-design" },
+  { title: "About",                href: "/about" },
 ];
 
 export default function Nav() {
