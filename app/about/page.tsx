@@ -1,123 +1,85 @@
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
-import { site } from "@/lib/content";
 
 export const metadata = {
   title: "About — Thakatha",
   description:
-    "Thakatha is a specialist photography studio for the art world — colour-accurate, archival reproduction of artworks, catalogues and collections across Johannesburg and Cape Town.",
+    "Thakatha is a specialist photography company working across art reproduction, product photography, events and publishing, based in Cape Town and Johannesburg.",
 };
-
-// Galleries, artists and institutions the studio has worked with.
-// Edit this list freely — add or remove names as your roster grows.
-const clients = [
-  "Goodman Gallery",
-  "Everard Read",
-  "Strauss & Co",
-  "Nelson Makamo",
-];
-
-const approach = [
-  {
-    title: "Colour-accurate capture",
-    body:
-      "Calibrated lighting and profiling so the reproduction matches the original — the colour, the surface, the proportion, exactly as they are.",
-  },
-  {
-    title: "Archival-quality files",
-    body:
-      "High-resolution files built to last, ready for print, digital and permanent collection records.",
-  },
-  {
-    title: "Careful with originals",
-    body:
-      "Delicate works handled with care, photographed on-site at galleries and studios when the work can’t travel.",
-  },
-  {
-    title: "Across every medium",
-    body:
-      "Paintings, sculpture, works on paper, books and in-situ installation views — documented with the same precision.",
-  },
-];
 
 export default function AboutPage() {
   return (
     <>
       {/* Hero */}
-      <section className="container-x pt-16 pb-12 sm:pt-24">
+      <section className="container-x pt-16 pb-10 sm:pt-24">
         <Reveal>
           <p className="label text-clay">About the studio</p>
           <h1 className="display mt-6 max-w-4xl text-5xl sm:text-7xl">
-            Imagery, true to the original.
+            Photography with precision and care
           </h1>
           <p className="mt-8 max-w-prose2 text-lg font-light leading-relaxed text-ink-soft">
-            Thakatha is a specialist photography studio for the art world —
-            capturing, cataloguing and presenting work with archival precision,
-            across Johannesburg and Cape Town.
+            Thakatha is a specialist photography company working across art
+            reproduction, product photography, events and publishing.
           </p>
         </Reveal>
       </section>
 
-      {/* Purpose */}
+      {/* Intro */}
+      <section className="container-x pb-12 sm:pb-16">
+        <Reveal className="max-w-prose2">
+          <p className="text-base font-light leading-relaxed text-ink-soft">
+            Founded in the art world, our work is guided by attention to detail,
+            consistency and a commitment to quality. Whether documenting a
+            collection, photographing products or capturing an event, we create
+            imagery that is thoughtful, professional and fit for purpose.
+          </p>
+          <p className="mt-6 text-base font-light leading-relaxed text-ink-soft">
+            Working across Cape Town and Johannesburg, we partner with artists,
+            galleries, collectors, brands and institutions throughout South
+            Africa.
+          </p>
+        </Reveal>
+      </section>
+
+      {/* Our Approach */}
       <section className="container-x py-12 sm:py-16">
         <Reveal className="grid grid-cols-12 gap-y-8">
           <div className="col-span-12 lg:col-span-3">
-            <p className="label text-clay">Our purpose</p>
+            <p className="label text-clay">Our approach</p>
           </div>
           <div className="col-span-12 lg:col-span-8 lg:col-start-5">
             <p className="text-2xl font-extralight leading-snug tracking-tight text-ink sm:text-3xl">
-              We exist for one reason: to make a reproduction that is true.
+              We believe good photography starts with careful observation.
             </p>
             <p className="mt-6 max-w-prose2 text-base font-light leading-relaxed text-ink-soft">
-              When you are documenting an artist’s body of work or a gallery’s
-              collection, the image has to be exactly right. Anything less
-              misrepresents the work. That standard sits behind everything we
-              photograph — from a single canvas to a full catalogue, from a
-              quiet studio to an opening night.
+              Every project is approached with precision, professionalism and an
+              understanding of what makes the subject unique.
+            </p>
+            <p className="mt-6 max-w-prose2 text-base font-light leading-relaxed text-ink-soft">
+              From artwork documentation and e-commerce photography to events
+              and publications, our focus remains the same: creating images that
+              serve their purpose well.
             </p>
           </div>
         </Reveal>
       </section>
 
-      {/* How we work */}
-      <section className="container-x py-12 sm:py-16">
-        <Reveal>
-          <p className="label text-clay">How we work</p>
-        </Reveal>
-        <div className="mt-10 grid grid-cols-1 gap-x-12 gap-y-10 sm:grid-cols-2">
-          {approach.map((item) => (
-            <Reveal key={item.title} className="border-t border-line pt-6">
-              <h3 className="text-xl font-light tracking-tight text-ink">
-                {item.title}
-              </h3>
-              <p className="mt-3 max-w-prose2 text-base font-light leading-relaxed text-ink-soft">
-                {item.body}
-              </p>
-            </Reveal>
-          ))}
-        </div>
-      </section>
-
-      {/* Trusted by */}
+      {/* Behind Thakatha */}
       <section className="container-x py-12 sm:py-16">
         <Reveal className="grid grid-cols-12 gap-y-8">
           <div className="col-span-12 lg:col-span-3">
-            <p className="label text-clay">Trusted by</p>
+            <p className="label text-clay">Behind Thakatha</p>
           </div>
           <div className="col-span-12 lg:col-span-8 lg:col-start-5">
-            <ul className="flex flex-wrap gap-x-10 gap-y-4">
-              {clients.map((c) => (
-                <li
-                  key={c}
-                  className="text-lg font-light tracking-tight text-ink"
-                >
-                  {c}
-                </li>
-              ))}
-            </ul>
-            <p className="mt-8 max-w-prose2 text-sm font-light leading-relaxed text-ink-faint">
-              Working with galleries, auction houses, artists and institutions
-              across {site.contact.locations}.
+            <p className="max-w-prose2 text-base font-light leading-relaxed text-ink-soft">
+              Founded by Jennifer Zaharieva, Thakatha operates through a small
+              team working across Cape Town and Johannesburg.
+            </p>
+            <p className="mt-6 max-w-prose2 text-base font-light leading-relaxed text-ink-soft">
+              What began as a specialist art documentation practice has evolved
+              into a broader photography company, while maintaining the
+              standards of care and attention to detail that shaped its
+              foundation.
             </p>
           </div>
         </Reveal>
@@ -132,7 +94,7 @@ export default function AboutPage() {
           </h2>
           <p className="mx-auto mt-6 max-w-prose2 font-light text-ink-soft">
             Share a brief and we’ll send back a tailored quote — whether it’s a
-            single canvas, a full catalogue, or an opening night.
+            single canvas, a product range, a publication, or an opening night.
           </p>
           <Link
             href="/publishing-design#brief"
