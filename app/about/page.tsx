@@ -7,6 +7,11 @@ export const metadata = {
     "Thakatha is a specialist photography company working across art reproduction, product photography, events and publishing, based in Cape Town and Johannesburg.",
 };
 
+const STUDIO_IMG =
+  "https://pavzocgkrwbhbrjskaud.supabase.co/storage/v1/object/public/video%20for%20front%20page/studio.jpg";
+const PORTRAIT_IMG =
+  "https://pavzocgkrwbhbrjskaud.supabase.co/storage/v1/object/public/video%20for%20front%20page/jennifer-zaharieva.jpg";
+
 export default function AboutPage() {
   return (
     <>
@@ -21,6 +26,21 @@ export default function AboutPage() {
             Thakatha is a specialist photography company working across art
             reproduction, product photography, events and publishing.
           </p>
+        </Reveal>
+      </section>
+
+      {/* Feature image — work in progress */}
+      <section className="container-x pb-12 sm:pb-16">
+        <Reveal>
+          <div className="aspect-[3/2] overflow-hidden">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={STUDIO_IMG}
+              alt="Documenting a framed artwork in the studio"
+              loading="lazy"
+              className="h-full w-full object-cover"
+            />
+          </div>
         </Reveal>
       </section>
 
@@ -66,11 +86,22 @@ export default function AboutPage() {
 
       {/* Behind Thakatha */}
       <section className="container-x py-12 sm:py-16">
-        <Reveal className="grid grid-cols-12 gap-y-8">
-          <div className="col-span-12 lg:col-span-3">
-            <p className="label text-clay">Behind Thakatha</p>
-          </div>
-          <div className="col-span-12 lg:col-span-8 lg:col-start-5">
+        <Reveal>
+          <p className="label text-clay">Behind Thakatha</p>
+        </Reveal>
+        <div className="mt-10 grid grid-cols-12 gap-8 gap-y-10">
+          <Reveal className="col-span-12 sm:col-span-5 lg:col-span-4">
+            <div className="aspect-[5/6] overflow-hidden">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={PORTRAIT_IMG}
+                alt="Jennifer Zaharieva, founder of Thakatha"
+                loading="lazy"
+                className="h-full w-full object-cover"
+              />
+            </div>
+          </Reveal>
+          <Reveal className="col-span-12 sm:col-span-7 lg:col-span-7 lg:col-start-6">
             <p className="max-w-prose2 text-base font-light leading-relaxed text-ink-soft">
               Founded by Jennifer Zaharieva, Thakatha operates through a small
               team working across Cape Town and Johannesburg.
@@ -81,8 +112,8 @@ export default function AboutPage() {
               standards of care and attention to detail that shaped its
               foundation.
             </p>
-          </div>
-        </Reveal>
+          </Reveal>
+        </div>
       </section>
 
       {/* CTA */}
