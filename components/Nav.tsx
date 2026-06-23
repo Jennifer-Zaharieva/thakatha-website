@@ -39,6 +39,12 @@ export default function Nav() {
     document.body.style.overflow = open ? "hidden" : "";
   }, [open]);
 
+  // Close the mobile menu and re-check scroll position on every navigation.
+  useEffect(() => {
+    setOpen(false);
+    setScrolled(window.scrollY > 40);
+  }, [pathname]);
+
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (eventsRef.current && !eventsRef.current.contains(e.target as Node)) {
@@ -50,96 +56,100 @@ export default function Nav() {
   }, []);
 
   return (
-    <header
-      className={`sticky top-0 z-[100] transition-all duration-500 ${
-        isDark ? "bg-[#0b0b0b]" : "bg-bone/90 backdrop-blur-md"
-      }`}
-    >
-      <div className="container-x flex h-[68px] items-center justify-between">
+    <>
+      <header
+        className={`sticky top-0 z-[100] transition-all duration-500 ${
+          isDark ? "bg-[#0b0b0b]" : "bg-bone/90 backdrop-blur-md"
+        }`}
+      >
+        <div className="container-x flex h-[68px] items-center justify-between">
 
-        <Link
-          href="/"
-          onClick={() => setOpen(false)}
-          className={`text-[15px] font-semibold uppercase tracking-wide2 transition-colors duration-500 ${
-            isDark ? "text-bone" : "text-ink"
-          }`}
-        >
-          {site.brand}
-        </Link>
+          <Link
+            href="/"
+            onClick={() => setOpen(false)}
+            className={`text-[15px] font-semibold uppercase tracking-wide2 transition-colors duration-500 ${
+              isDark ? "text-bone" : "text-ink"
+            }`}
+          >
+            {site.brand}
+          </Link>
 
-        {/* Desktop */}
-        <div className="hidden items-center gap-8 md:flex">
-          {isDark ? (
-            <span className="text-[20px] font-extrabold uppercase tracking-wide text-bone">
-              Photography & Visual Production
-            </span>
-          ) : (
-            <>
-              {links.map((l) =>
-                l.dropdown ? (
-                  <div
-                    key={l.href}
-                    ref={eventsRef}
-                    className="relative"
-                    onMouseEnter={() => setEventsOpen(true)}
-                    onMouseLeave={() => setEventsOpen(false)}
-                  >
+          {/* Desktop */}
+          <div className="hidden items-center gap-8 md:flex">
+            {isDark ? (
+              <span className="text-[20px] font-extrabold uppercase tracking-wide text-bone">
+                Photography & Visual Production
+              </span>
+            ) : (
+              <>
+                {links.map((l) =>
+                  l.dropdown ? (
+                    <div
+                      key={l.href}
+                      ref={eventsRef}
+                      className="relative"
+                      onMouseEnter={() => setEventsOpen(true)}
+                      onMouseLeave={() => setEventsOpen(false)}
+                    >
+                      <Link
+                        href={l.href}
+                        className="label link-underline text-ink-soft hover:text-ink"
+                      >
+                        {l.title}
+                      </Link>
+                      {eventsOpen && (
+                        <div className="absolute left-0 top-full pt-3">
+                          <div className="w-52 border border-line bg-paper py-2 shadow-sm">
+                            {l.dropdown.map((item) => (
+                              <Link
+                                key={item.title}
+                                href={item.href}
+                                className="block px-5 py-3 text-[11px] font-medium uppercase tracking-label text-ink-soft transition-colors duration-200 hover:bg-bone hover:text-ink"
+                              >
+                                {item.title}
+                              </Link>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  ) : (
                     <Link
+                      key={l.href}
                       href={l.href}
                       className="label link-underline text-ink-soft hover:text-ink"
                     >
                       {l.title}
                     </Link>
-                    {eventsOpen && (
-                      <div className="absolute left-0 top-full pt-3">
-                        <div className="w-52 border border-line bg-paper py-2 shadow-sm">
-                          {l.dropdown.map((item) => (
-                            <Link
-                              key={item.title}
-                              href={item.href}
-                              className="block px-5 py-3 text-[11px] font-medium uppercase tracking-label text-ink-soft transition-colors duration-200 hover:bg-bone hover:text-ink"
-                            >
-                              {item.title}
-                            </Link>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                ) : (
-                  <Link
-                    key={l.href}
-                    href={l.href}
-                    className="label link-underline text-ink-soft hover:text-ink"
-                  >
-                    {l.title}
-                  </Link>
-                )
-              )}
-              <Link
-                href="/publishing-design#brief"
-                className="rounded-full bg-ink px-5 py-2.5 text-[11px] font-medium uppercase tracking-label text-bone transition-colors duration-300 hover:bg-clay-deep"
-              >
-                Get a Quote
-              </Link>
-            </>
-          )}
+                  )
+                )}
+                <Link
+                  href="/publishing-design#brief"
+                  className="rounded-full bg-ink px-5 py-2.5 text-[11px] font-medium uppercase tracking-label text-bone transition-colors duration-300 hover:bg-clay-deep"
+                >
+                  Get a Quote
+                </Link>
+              </>
+            )}
+          </div>
+
+          {/* Hamburger */}
+          <button
+            aria-label="Toggle menu"
+            onClick={() => setOpen((v) => !v)}
+            className="flex h-10 w-10 flex-col items-center justify-center gap-[5px] md:hidden"
+          >
+            <span className={`block h-px w-6 transition-all duration-300 ${isDark ? "bg-bone" : "bg-ink"} ${open ? "translate-y-[3px] rotate-45" : ""}`} />
+            <span className={`block h-px w-6 transition-all duration-300 ${isDark ? "bg-bone" : "bg-ink"} ${open ? "-translate-y-[3px] -rotate-45" : ""}`} />
+          </button>
         </div>
+      </header>
 
-        {/* Hamburger */}
-        <button
-          aria-label="Toggle menu"
-          onClick={() => setOpen((v) => !v)}
-          className="flex h-10 w-10 flex-col items-center justify-center gap-[5px] md:hidden"
-        >
-          <span className={`block h-px w-6 transition-all duration-300 ${isDark ? "bg-bone" : "bg-ink"} ${open ? "translate-y-[3px] rotate-45" : ""}`} />
-          <span className={`block h-px w-6 transition-all duration-300 ${isDark ? "bg-bone" : "bg-ink"} ${open ? "-translate-y-[3px] -rotate-45" : ""}`} />
-        </button>
-      </div>
-
-      {/* Mobile overlay */}
+      {/* Mobile overlay — kept OUTSIDE the header so its fixed positioning is
+          relative to the viewport, not the blurred header (a backdrop-filter
+          on an ancestor would otherwise trap this fixed element inside it). */}
       {open && (
-        <div className="fixed inset-0 top-[68px] z-[99] overflow-y-auto bg-[#FBF8F2] md:hidden">
+        <div className="fixed bottom-0 left-0 right-0 top-[68px] z-[99] overflow-y-auto bg-[#FBF8F2] md:hidden">
           <div className="container-x flex flex-col pt-8">
             {links.map((l, i) => (
               <div key={l.href}>
@@ -173,6 +183,6 @@ export default function Nav() {
           </div>
         </div>
       )}
-    </header>
+    </>
   );
 }
